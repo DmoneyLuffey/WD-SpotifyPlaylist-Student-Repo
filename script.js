@@ -100,14 +100,47 @@ Show students: the page reacts when the user does something */
 //WE DO STEP ==> Instructor and students will complete steps 5-6 live together.
 
 // STEP 5: Clearing Previous Playlist
+container.innerHTML = "";
 
 // STEP 6: Conditional Feedback
-
+if (mood == "focus") {
+  feedback.innerText = "It's time to lock in!";
+} else if (mood == "chill") {
+  feedback.innerText = "Relax and vibe out.";
+} else if (mood == "hype") {
+  feedback.innerText = "Turn up the energy!";
+} else {
+  feedback.innerText = "Select a mood to see the playlist.";
+}
 
 // STOP. DEV TEAMS BEGIN HERE.
 
 // STEP 7: The Loop (⭐⭐⭐ MOST IMPORTANT!)
+if (songs) {
+  for (let i = 0; i < songs.length; i++) {
+    const song = songs[i];
 
+    const row = document.createElement("div");
+    row.classList.add("song-row");
+    
+    const img = document.createElement("img");
+    img.src = song.cover;
+    img.alt = song.title + " cover art";
+    img.classList.add("cover");
+
+    img.onerror = function() {
+      this.src = "https://placehold.co/60x60?text=Music";
+    };
+
+    const title = document.createElement("div");
+    title.innerText = song.title;
+
+    row.appendChild(img);
+    row.appendChild(title);
+
+    container.appendChild(row);
+  }
+}
 
 // STEP 8: Create and Display DOM Elements
 
@@ -119,6 +152,4 @@ Show students: the page reacts when the user does something */
  
 
 //  BONUS: Image Fallback Protection
- img.onerror = function() {
-    this.src = "https://placehold.co/60x60?text=Music";
-  };
+
